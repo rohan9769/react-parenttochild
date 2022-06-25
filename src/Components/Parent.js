@@ -5,6 +5,7 @@ const Parent = () => {
 
     const[data,setData] = useState('')
     const[counter,setCounter] = useState(0)
+    const[name,setName] = useState('')
 
     const parentToChild = () =>{
         setData("This is data from parent to child")
@@ -16,12 +17,22 @@ const Parent = () => {
 
     }
 
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        alert(`Name from parent to child is ${name}`)
+    }
+
   return (
     <>
-    <Child incrementCounter={counter} parentToChild={data}></Child>
+    <Child incrementCounter={counter} parentToChild={data} handleSubmit={name}></Child>
     <div>
         <button onClick = {()=>parentToChild()}>Click Parent</button>
         <button onClick={()=>incrementCounter()}>Increment Counter (Parent)</button>
+        <form onSubmit={handleSubmit}>
+            <label>Name  : </label>
+            <input type='text' value={name} onChange={(e)=>setName(e.target.value)}></input>
+            <button type='submit'>Submit</button>
+        </form>
         
     </div>
     </>
